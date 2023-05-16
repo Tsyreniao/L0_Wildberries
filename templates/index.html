@@ -1,0 +1,93 @@
+{{define "index"}}
+{{template "header"}}
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h1>Order search by UID</h1>
+    <p>Enter the UID and click submit button</p>
+
+    <form action = "/order">
+        <input autocomplete="off" type="number" name = "orderID">
+        <button type = "submit">submit</button>
+    </form>
+    {{if not .IsFirstTime}}
+    {{if .IsExist}}
+    <table>
+        <thead>
+            <tr>
+                <th colspan="5">Order table</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>UID</th>
+                <th>Order</th>
+                <th>Delivery</th>
+                <th>Payment</th>
+                <th>Items</th>
+            </tr>
+            <tr>
+                <td>{{.UID}}</td>
+                <td>
+                    <p>UUID - {{.Order.UUID}}</p>
+                    <p>TrackNumber - {{.Order.TrackNumber}}</p>
+                    <p>Entry - {{.Order.Entry}}</p>
+                    <p>Locale - {{.Order.Locale}}</p>
+                    <p>InternalSignature - {{.Order.InternalSignature}}</p>
+                    <p>CustomerId - {{.Order.CustomerId}}</p>
+                    <p>DeliveryService - {{.Order.DeliveryService}}</p>
+                    <p>Shardkey - {{.Order.Shardkey}}</p>
+                    <p>SmId - {{.Order.SmId}}</p>
+                    <p>DateCreated - {{.Order.DateCreated}}</p>
+                    <p>OofShard - {{.Order.OofShard}}</p>
+                </td>
+                <td>
+                    <p>Name - {{.Order.Delivery.Name}}</p>
+                    <p>Phone - {{.Order.Delivery.Phone}}</p>
+                    <p>Zip - {{.Order.Delivery.Zip}}</p>
+                    <p>City - {{.Order.Delivery.City}}</p>
+                    <p>Address - {{.Order.Delivery.Address}}</p>
+                    <p>Region - {{.Order.Delivery.Region}}</p>
+                    <p>Email - {{.Order.Delivery.Email}}</p>
+                </td>
+                <td>
+                    <p>Transaction - {{.Order.Payment.Transaction}}</p>
+                    <p>RequestId - {{.Order.Payment.RequestId}}</p>
+                    <p>Currency - {{.Order.Payment.Currency}}</p>
+                    <p>Provider - {{.Order.Payment.Provider}}</p>
+                    <p>Amount - {{.Order.Payment.Amount}}</p>
+                    <p>PaymentDt - {{.Order.Payment.PaymentDt}}</p>
+                    <p>Bank - {{.Order.Payment.Bank}}</p>
+                    <p>DeliveryCost - {{.Order.Payment.DeliveryCost}}</p>
+                    <p>GoodsTotal - {{.Order.Payment.GoodsTotal}}</p>
+                    <p>CustomFee - {{.Order.Payment.CustomFee}}</p>
+                </td>
+                <td>
+                {{range $key, $value := .Order.Items}}
+                    <p><b>Item Number - {{$key}}</b></p>
+                    <p> ChrtId - {{$value.ChrtId}}</p>
+                    <p> TrackNumber - {{$value.TrackNumber}} Price - {{$value.Price}}</p>
+                    <p> Rid - {{$value.Rid}} Name - {{$value.Name}}</p>
+                    <p> Sale - {{$value.Sale}} Size - {{$value.Size}}</p>
+                    <p> TotalPrice - {{$value.TotalPrice}} NmId - {{$value.NmId}}</p>
+                    <p> Brand - {{$value.Brand}} Status - {{$value.Status}}</p>
+                    <p></p>
+                {{end}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody>
+        </tbody>
+    </table>
+    {{else}}
+    <p>No order find with ID = {{.UID}}</p>
+    {{end}}
+    {{end}}
+</body>
+
+</html>
+{{end}}
